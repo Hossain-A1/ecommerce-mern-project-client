@@ -5,62 +5,81 @@ import {} from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { BsSearch } from "react-icons/bs";
 import LoginPopup from "./LoginPopup";
-const Navbar = () => {
+import Cookies from "js-cookie";
+import ProfilePopup from "./ProfilePopup/ProfilePopup";
+const Navbar = ({ profileModal, setProfileModal }) => {
   const [menu, setMenu] = useState("/");
   const [loginModal, setLoginModal] = useState(false);
+
+  // Accessing the tokens from cookies
+  const accessToken = Cookies.get("access_token");
+
+  
   return (
     <header className='navbar   '>
       <div className='  container'>
         <div className='nav-top flex-space-between '>
           <div className='logo  '>
-            <h2 className="nav-logo">eBay</h2>
+            <h2 className='nav-logo'>eBay</h2>
             <button className='category-btn flex-cente flex-space-between'>
               <FaListUl className='category-icon' />
               <p className='category'>Category</p>
-              <div  className='search'>
-              <input
-                type='search'
-                placeholder='Search for anything'
-               
-              />
-              <p className='search-bar-icon'>
-                <BsSearch className='search-icon' />
-              </p>
-          
-           </div>
+              <div className='search'>
+                <input type='search' placeholder='Search for anything' />
+                <p className='search-bar-icon'>
+                  <BsSearch className='search-icon' />
+                </p>
+              </div>
             </button>
           </div>
 
           <div className=' flex-center mid-between'>
-          
-           <div className="mid-center">
-           <div  className='search-input'>
-              <input
-                type='search'
-                placeholder='Search...'
-               
-              />
-              <p className='search-bar-icon'>
-                <BsSearch className='search-icon' />
-              </p>
-          
-           </div>
-           </div>
-              {loginModal && (
-                <div className='overlay  '>
-                  <LoginPopup setLoginModal={setLoginModal} />
-                </div>
-              )}
+            <div className='mid-center'>
+              <div className='search-input'>
+                <input type='search' placeholder='Search...' />
+                <p className='search-bar-icon'>
+                  <BsSearch className='search-icon' />
+                </p>
+              </div>
+            </div>
+            {loginModal && (
+              <div className='overlay  '>
+                <LoginPopup setLoginModal={setLoginModal} />
+              </div>
+            )}
 
-                  <div className='flex-center end'>
+            <div className='flex-center end'>
               <div className='nav-right'>
-                <button onClick={() => setLoginModal(true)} className=''>
-                  Sign in
-                </button>
+                <div className=''>
+                  {/* profile start here */}
+                  <div>
+                    {profileModal && (
+                      <ProfilePopup setProfileModal={setProfileModal} />
+                    )}
+                  </div>
+
+                  {!accessToken && (
+                    <button onClick={() => setLoginModal(true)} className=''>
+                      Sign in
+                    </button>
+                  )}
+                </div>
                 <NavLink to='/love'>
                   {<FaRegHeart className='cart-nav' />}
                 </NavLink>
                 <NavLink to='/gift'>{<FaGift className='cart-nav' />}</NavLink>
+                {accessToken && (
+                  <div
+                    onClick={() => setProfileModal(true)}
+                    className='profile-icon flex-center'
+                  >
+                    <p>
+                      🧑🏼‍🏫
+                      <span>▽</span>
+                    </p>
+                  </div>
+                )}
+
                 <NavLink to='/cart'>
                   {<FiShoppingCart className='cart-nav' />}
                 </NavLink>

@@ -145,6 +145,17 @@ textarea {
   color: red;
   font-size: small;
 }
+/* sidebar and main container  start here */
+.sidebar-container{
+  
+  padding: var(--pading);
+flex: 1;
+background-color: #808080;
+}
+.main-container{
+  padding: var(--pading);
+flex: 3;
+}
 /* -----------------navbar starts here--------------- */
 
 .navbar {
@@ -237,7 +248,16 @@ display: none;
   justify-content: space-between;
   width: 100%;
 }
-
+.profile-icon{
+  text-align: center;
+  padding: 10px 5px;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.profile-icon select{
+  background: transparent;
+}
 /* Register starts here */
 
 .flex-col {
@@ -245,6 +265,7 @@ display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
 }
 
 .flex-col-register {
@@ -278,12 +299,7 @@ display: none;
   transition: var(--transition);
   background-color: rgb(28, 23, 23, 0.5);
 }
-.login-popup-header {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-}
+
 .login-popup {
   position: absolute;
   z-index: 1;
@@ -291,6 +307,13 @@ display: none;
   height: 100%;
   background-color: #00000090;
   display: grid;
+}
+
+.login-popup-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
 }
 .login-popup-container {
   place-self: center;

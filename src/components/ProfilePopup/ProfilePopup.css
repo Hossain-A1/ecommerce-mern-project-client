@@ -1,0 +1,23 @@
+.profile-popup {
+  position: absolute;
+  top: 12%;
+  right: 24px;
+  z-index: 1;
+  padding: var(--pading);
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  animation: fadeIn 0.5s;
+}
+
+/* .profile-popup-container {
+  place-self: center;
+  width: max(23vw, 330px);
+  color: #808080;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 25px 30px;
+  border-radius: 8px;
+  font-size: 14px;
+  animation: fadeIn 0.5s;
+} */

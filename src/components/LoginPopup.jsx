@@ -4,12 +4,17 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import { registrationSchema, loginSchema } from "../libs/validationSchemas"; // Adjust the import as needed
+import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
+import { loginUser } from "../app/features/auth/authSlice";
+
 
 const LoginPopup = ({ setLoginModal }) => {
   const serverURL = "http://localhost:4000";
-  const navigate = useNavigate();
-  const [currState, setCurrState] = useState("Register");
+  const { userAndToken } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
+  const [currState, setCurrState] = useState("Register");
   // State to store form data
   const [formData, setFormData] = useState({
     name: "",
@@ -21,6 +26,7 @@ const LoginPopup = ({ setLoginModal }) => {
 
   // State to store form errors
   const [errors, setErrors] = useState({});
+  3;
 
   const onChangehandler = (e) => {
     const { name, value } = e.target;
@@ -29,7 +35,6 @@ const LoginPopup = ({ setLoginModal }) => {
 
   const handleUserLogin = async (e) => {
     e.preventDefault();
-
     let schema;
     let newURL = serverURL;
     if (currState === "Register") {
@@ -44,7 +49,9 @@ const LoginPopup = ({ setLoginModal }) => {
       // Validate form data
       schema.parse(formData);
 
-      const serverResponse = await axios.post(newURL, formData);
+      const serverResponse = await axios.post(newURL, formData, {
+        withCredentials: true, // Important for cookies
+      });
       if (serverResponse.data.success) {
         setLoginModal(false);
         setFormData({
@@ -54,6 +61,12 @@ const LoginPopup = ({ setLoginModal }) => {
           phone: "",
           address: "",
         });
+
+        // You can't access HttpOnly cookies like this, but they will be sent automatically with future requests
+        Cookies.get("access_token");
+        Cookies.get("refresh_token");
+
+        dispatch(loginUser(serverResponse.data.payload?.userWithoutPassword ));
 
         // Display success message
         toast.success(
@@ -78,7 +91,7 @@ const LoginPopup = ({ setLoginModal }) => {
 
         setErrors(flatErrors);
       } else {
-        alert(res.data.message);
+        toast.error("Error: " + error.message);
       }
     }
   };
