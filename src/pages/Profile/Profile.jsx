@@ -1,41 +1,39 @@
-import './Profile.css';
+import "./Profile.css";
 import { useState, useEffect } from "react";
-import useFetch from "../../hooks/useFetch";
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from '../../app/features/auth/authSlice';
+import { loginUser } from "../../app/features/auth/authSlice";
 
 const Profile = () => {
-  const { user: dd } = useSelector((state) => state.auth);
+  const { id } = useParams();
+  const { user: customer } = useSelector((state) => state.auth);
+  const user =  customer // Access payload for user data
+  console.log(user);
   const dispatch = useDispatch();
-  const { id } = useParams(); // Get the id from the URL
-  const { data: customer, isLoading, error } = useFetch(`/api/users/${id}`); // Fetch user data
-  const user = customer?.payload?.user;
 
-  const newAccessToken = Cookies.get('access_token');
+  const newAccessToken = Cookies.get("access_token");
   const [editMode, setEditMode] = useState(false);
+  const [imageFile, setImageFile] = useState(null); // Store the uploaded file
 
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    address: '',
-    image: '', // Will be updated later
+    name: user.name ,
+    phone: user.phone ,
+    address: user.address ,
+    image: user.image // Existing image from user data
   });
 
-  const [imageFile, setImageFile] = useState(null); // Separate state for handling file input
-
   useEffect(() => {
-    if (user) {
+   
       setFormData({
         name: user.name,
         phone: user.phone,
         address: user.address,
-        image: user.image ? `http://localhost:4000/${user.image}` : '', // Set the image URL
+        image: user.image, // Set existing image
       });
-    }
-  }, [user]);
+    
+  }, []);
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
@@ -48,8 +46,11 @@ const Profile = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setImageFile(file); // Update file state for new image
-    setFormData({ ...formData, image: URL.createObjectURL(file) }); // Preview the new image
+    if (file) {
+      setImageFile(file);
+      // Generate a temporary URL for the uploaded file
+      setFormData({ ...formData, image: URL.createObjectURL(file) });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -60,7 +61,6 @@ const Profile = () => {
       formDataToSend.append("phone", formData.phone);
       formDataToSend.append("address", formData.address);
 
-      // Append the image only if a new file has been selected
       if (imageFile) {
         formDataToSend.append("image", imageFile);
       }
@@ -70,48 +70,42 @@ const Profile = () => {
         formDataToSend,
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${newAccessToken}`,
           },
           withCredentials: true,
         }
       );
-      dispatch(loginUser(res.data));
-      // Update formData with the new image URL
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        image: res.data.image ? `http://localhost:4000/${res.data.image}` : prevFormData.image,
-      }));
-      toggleEditMode(); // Exit edit mode after successful update
+
+      // Update user state after successful update
+      dispatch(loginUser(res.data.payload));
+      toggleEditMode();
     } catch (error) {
       console.error("Error updating user:", error);
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading profile data</p>;
-
   return (
-    <div className='profile-container'>
+    <div className="profile-container">
       {user ? (
-        <div className='profile-card'>
-          <div className='profile-header'>
-            <img 
-              src={formData.image} 
-              alt='Profile' 
-              className='profile-image' 
+        <div className="profile-card">
+          <div className="profile-header">
+            <img
+              src={formData.image || "default-profile.jpg"} // Show uploaded image or existing one
+              alt="Profile"
+              className="profile-image"
             />
-            <h1>{user.name}</h1>
-            <button onClick={toggleEditMode} className='edit-button'>
-              {editMode ? 'Cancel' : 'Edit Profile'}
+            <h1>{formData.name}</h1>
+            <button onClick={toggleEditMode} className="edit-button">
+              {editMode ? "Cancel" : "Edit Profile"}
             </button>
           </div>
           {editMode ? (
-            <form onSubmit={handleSubmit} className='profile-edit-form'>
+            <form onSubmit={handleSubmit} className="profile-edit-form">
               <div>
                 <label>Name</label>
                 <input
-                className='edit-input'
+                  className="edit-input"
                   type="text"
                   name="name"
                   value={formData.name}
@@ -121,6 +115,7 @@ const Profile = () => {
               <div>
                 <label>Phone</label>
                 <input
+                  className="edit-input"
                   type="text"
                   name="phone"
                   value={formData.phone}
@@ -130,6 +125,7 @@ const Profile = () => {
               <div>
                 <label>Address</label>
                 <input
+                  className="edit-input"
                   type="text"
                   name="address"
                   value={formData.address}
@@ -139,15 +135,18 @@ const Profile = () => {
               <div>
                 <label>Profile Image</label>
                 <input
+                  className="edit-input"
                   type="file"
                   name="image"
                   onChange={handleImageChange}
                 />
               </div>
-              <button type="submit" className='save-button'>Save Changes</button>
+              <button type="submit" className="save-button">
+                Save Changes
+              </button>
             </form>
           ) : (
-            <div className='profile-details'>
+            <div className="profile-details">
               <div>
                 <strong>Email:</strong>
                 <p>{user.email}</p>
@@ -162,11 +161,11 @@ const Profile = () => {
               </div>
               <div>
                 <strong>Admin:</strong>
-                <p>{user.isAdmin ? 'Yes' : 'No'}</p>
+                <p>{user.isAdmin ? "Yes" : "No"}</p>
               </div>
               <div>
                 <strong>Banned:</strong>
-                <p>{user.isBanned ? 'Yes' : 'No'}</p>
+                <p>{user.isBanned ? "Yes" : "No"}</p>
               </div>
             </div>
           )}

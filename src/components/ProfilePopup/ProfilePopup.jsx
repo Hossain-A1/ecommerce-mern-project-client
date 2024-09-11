@@ -7,7 +7,6 @@ import { logoutUser } from "../../app/features/auth/authSlice";
 const ProfilePopup = ({ setProfileModal }) => {
   const url = "http://localhost:4000";
   const { user } = useSelector((state) => state.auth);
-
   const {_id} =user
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,8 +15,8 @@ const ProfilePopup = ({ setProfileModal }) => {
       await axios.post(url + "/api/auth/logout");
       // Remove cookie and log out from Redux state
    Cookies.remove("access_token");
+   navigate('/')
       dispatch(logoutUser())
-      navigate('/')
     } catch (error) {
       console.error("Logout failed:", error);
     }
