@@ -8,10 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import { loginUser } from "../app/features/auth/authSlice";
 
-
 const LoginPopup = ({ setLoginModal }) => {
   const serverURL = "http://localhost:4000";
-  const { userAndToken } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const [currState, setCurrState] = useState("Register");
@@ -66,15 +64,17 @@ const LoginPopup = ({ setLoginModal }) => {
         Cookies.get("access_token");
         Cookies.get("refresh_token");
 
-        dispatch(loginUser(serverResponse.data.payload?.userWithoutPassword ));
+        dispatch(loginUser(serverResponse.data.payload));
 
         // Display success message
-        toast.success(
-          `Go to your email (${formData.email}) to activate your account.`,
-          {
-            duration: 6000,
-          }
-        );
+        if (currState === "Register") {
+          toast.success(
+            `Go to your email (${formData.email}) to activate your account.`,
+            {
+              duration: 6000,
+            }
+          );
+        }
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -97,19 +97,17 @@ const LoginPopup = ({ setLoginModal }) => {
   };
 
   return (
-    <div className=' login-popup  '>
+    <div className=' login-popup   '>
       <form
         className='flex-col-register  login-popup-container'
         onSubmit={handleUserLogin}
       >
-        {currState === "Register" && (
-          <div className='login-popup-header'>
-            <h2 className='register-title'>Create an account</h2>
-            <p className='modal-close' onClick={() => setLoginModal(false)}>
-              X
-            </p>
-          </div>
-        )}
+        <div className='login-popup-header'>
+          <h2 className='register-title'>Create an account</h2>
+          <p className='modal-close' onClick={() => setLoginModal(false)}>
+            X
+          </p>
+        </div>
 
         {currState === "Register" ? (
           <>
@@ -196,7 +194,7 @@ const LoginPopup = ({ setLoginModal }) => {
             </div>
           </>
         ) : (
-          <div>
+          <>
             <h2 className='register-title'>Login</h2>
 
             {/* Email Field */}
@@ -232,7 +230,7 @@ const LoginPopup = ({ setLoginModal }) => {
                 <i className='form-error'>{errors.password}</i>
               )}
             </div>
-          </div>
+          </>
         )}
 
         <button type='submit' className='btn'>

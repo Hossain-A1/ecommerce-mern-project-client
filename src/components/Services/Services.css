@@ -1,0 +1,38 @@
+.services-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-around;
+  padding: 20px;
+  overflow-x: scroll;
+}
+.services-container::-webkit-scrollbar {
+  display: none;
+}
+
+.service-item {
+  display: flex;
+  padding: 1rem 1.5rem;
+  border-radius: 100%;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.service-item .icon {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #aaa8a8;
+}
+
+.service-item span {
+  font-size: 16px;
+  color: #707070;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .service-item {
+    margin: 16px 0;
+    box-shadow: var(--box-shadow);
+  }
+}

@@ -1,19 +1,26 @@
+import { useState } from "react";
+import Category from "../components/Category/Category";
+import Hero from "../components/Hero/Hero";
 import ProductSidebar from "../components/ProductSidebar";
+import Services from "../components/Services/Services";
 
-
-const Home = ({setProfileModal}) => {
+const Home = ({ setProfileModal }) => {
+  const [sidebar, setSidebar] = useState(false);
 
   return (
-    <div className='flex-space-around' onClick={()=>setProfileModal(false)}>
-      <div className="sidebar-container">
-        <ProductSidebar/>
-      </div>
-      <div className="main-container">
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio praesentium accusantium rem atque id quod delectus alias expedita nam, ut corporis est facere ducimus, neque amet voluptate consectetur iusto iste!</p>
-      </div>
-   
+    <div className=''>
+      <>
+        {sidebar && (
+          <ProductSidebar sidebar={sidebar} setSidebar={setSidebar} />
+        )}
+      </>
+      <>
+        <Hero />
+        <Services />
+        <Category />
+      </>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

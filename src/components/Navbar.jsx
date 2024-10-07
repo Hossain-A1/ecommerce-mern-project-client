@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaRegHeart, FaGift, FaListUl } from "react-icons/fa";
-import {} from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
+import { FaUserEdit } from "react-icons/fa";
 import { BsSearch } from "react-icons/bs";
 import LoginPopup from "./LoginPopup";
 import Cookies from "js-cookie";
@@ -14,7 +14,6 @@ const Navbar = ({ profileModal, setProfileModal }) => {
   // Accessing the tokens from cookies
   const accessToken = Cookies.get("access_token");
 
-  
   return (
     <header className='navbar   '>
       <div className='  container'>
@@ -65,23 +64,22 @@ const Navbar = ({ profileModal, setProfileModal }) => {
                   )}
                 </div>
                 <NavLink to='/love'>
-                  {<FaRegHeart className='cart-nav' />}
+                  {<FaRegHeart className='right-icons' />}
                 </NavLink>
-                <NavLink to='/gift'>{<FaGift className='cart-nav' />}</NavLink>
+                <NavLink to='/gift'>{<FaGift className='right-icons' />}</NavLink>
                 {accessToken && (
                   <div
                     onClick={() => setProfileModal(true)}
-                    className='profile-icon flex-center'
+                    className='profile-icon'
                   >
-                    <p>
-                      🧑🏼‍🏫
-                      <span>▽</span>
-                    </p>
+                 
+                    <FaUserEdit className="right-icon-profile" />
+                   
                   </div>
                 )}
 
                 <NavLink to='/cart'>
-                  {<FiShoppingCart className='cart-nav' />}
+                  {<FiShoppingCart className='right-icons' />}
                 </NavLink>
               </div>
             </div>

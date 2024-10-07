@@ -1,0 +1,35 @@
+.hero-section {
+  background-color: #D9E7F2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 1.5rem;
+  gap: 1rem;
+}
+.hero-left{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.hero-section h1{
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.hero-section p{
+  margin-bottom: 20px;
+}
+
+.hero-right img{
+  background-color: #D9E7F2;
+  width: max(10vw,300px);
+}
+
+@media (max-width:750px) {
+  .hero-section{
+    flex-direction: column-reverse;
+  }
+  .hero-section h1{
+    font-size: 1.5rem;
+  }
+}

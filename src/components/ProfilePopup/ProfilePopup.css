@@ -2,22 +2,86 @@
   position: absolute;
   top: 12%;
   right: 24px;
-  z-index: 1;
-  padding: var(--pading);
+  width: auto;
+  z-index: 5;
   background-color: white;
   box-shadow: var(--box-shadow);
   animation: fadeIn 0.5s;
+  border-radius: 1rem;
 }
 
-/* .profile-popup-container {
-  place-self: center;
-  width: max(23vw, 330px);
-  color: #808080;
-  background-color: white;
+.profile-popup-container {
+  padding: 1rem;
+  width: 100%;
+}
+
+.profile-popup-header {
   display: flex;
-  flex-direction: column;
-  padding: 25px 30px;
-  border-radius: 8px;
-  font-size: 14px;
-  animation: fadeIn 0.5s;
-} */
+  width: 100%;
+  align-items: center;
+  background-color: rgb(194, 194, 238);
+  padding: 1rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.profile-popup-icon {
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+.profile-name h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.view-profile {
+  font-size: 0.9rem;
+  color: #0073e6;
+  font-weight: 300;
+  margin-top: 5px;
+  text-decoration: none;
+}
+
+.profile-popup-options {
+  padding: 1rem;
+}
+
+.popup-link {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem ;
+  text-decoration: none;
+  color: black;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.popup-link svg {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.popup-link:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+}
+
+.logout {
+  color: #d9534f;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.logout svg {
+  margin-right: 10px;
+}
+
+.logout:hover {
+  background-color: rgba(217, 83, 79, 0.1);
+  border-radius: 0.5rem;
+}
