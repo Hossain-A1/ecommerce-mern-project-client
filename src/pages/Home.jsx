@@ -1,24 +1,30 @@
 import { useState } from "react";
 import Category from "../components/Category/Category";
 import Hero from "../components/Hero/Hero";
-import ProductSidebar from "../components/ProductSidebar";
+import ProductSidebar from "../components/Sidebar/ProductSidebar";
 import Services from "../components/Services/Services";
+import { FaListUl } from "react-icons/fa";
 
-const Home = ({ setProfileModal }) => {
+const Home = () => {
   const [sidebar, setSidebar] = useState(false);
 
   return (
-    <div className=''>
-      <>
+    <div>
+      <button onClick={() => setSidebar(true)} className="toggle-filter"> <FaListUl/> Filter</button>
+
+      <div className={`${sidebar && "flex-space-between"}`}>
         {sidebar && (
-          <ProductSidebar sidebar={sidebar} setSidebar={setSidebar} />
+          <div>
+            <ProductSidebar sidebar={sidebar} setSidebar={setSidebar} />
+          </div>
         )}
-      </>
-      <>
-        <Hero />
-        <Services />
-        <Category />
-      </>
+
+        <div className={` ${sidebar ? "main-contents" : ""}`}>
+          <Hero />
+          <Services />
+          <Category />
+        </div>
+      </div>
     </div>
   );
 };

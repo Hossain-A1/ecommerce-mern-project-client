@@ -33,7 +33,22 @@ html {
   padding-left: 2rem;
   padding-right: 2rem;
 }
-
+.main-contents {
+  width: 80%;
+  height: auto;
+}
+.toggle-filter{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 4px;
+  background-color: black;
+  color: white;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
 .sp {
   padding-top: 1rem;
 }
@@ -107,7 +122,6 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
 }
 .flex-center {
   display: flex;

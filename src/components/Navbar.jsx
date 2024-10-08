@@ -8,7 +8,7 @@ import LoginPopup from "./LoginPopup";
 import Cookies from "js-cookie";
 import ProfilePopup from "./ProfilePopup/ProfilePopup";
 const Navbar = ({ profileModal, setProfileModal }) => {
-  const [menu, setMenu] = useState("/");
+  const [menu, setMenu] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
 
   // Accessing the tokens from cookies
@@ -66,15 +66,15 @@ const Navbar = ({ profileModal, setProfileModal }) => {
                 <NavLink to='/love'>
                   {<FaRegHeart className='right-icons' />}
                 </NavLink>
-                <NavLink to='/gift'>{<FaGift className='right-icons' />}</NavLink>
+                <NavLink to='/gift'>
+                  {<FaGift className='right-icons' />}
+                </NavLink>
                 {accessToken && (
                   <div
                     onClick={() => setProfileModal(true)}
                     className='profile-icon'
                   >
-                 
-                    <FaUserEdit className="right-icon-profile" />
-                   
+                    <FaUserEdit className='right-icon-profile' />
                   </div>
                 )}
 
@@ -87,46 +87,37 @@ const Navbar = ({ profileModal, setProfileModal }) => {
         </div>
 
         <ul className='navbar-bottom-menu flex-center '>
-          <NavLink
-            to='/'
-            onClick={() => setMenu("home")}
-            className={menu === "home" ? "active" : "nav-links"}
-          >
+          <NavLink to='/' className={menu === "home" ? "active" : "nav-links"}>
             home{" "}
           </NavLink>
           <NavLink
-            to='/saving'
-            onClick={() => setMenu("home")}
-            className={menu === "/saving" ? "active" : "nav-links"}
+            to='/savings'
+            className={menu === "/savings" ? "active" : "nav-links"}
           >
             Savings
           </NavLink>
 
           <NavLink
             to='/shop'
-            onClick={() => setMenu("menu")}
-            className={menu === "menu" ? "active" : "nav-links"}
+            className={menu === "/shop" ? "active" : "nav-links"}
           >
             shop
           </NavLink>
           <NavLink
-            to='/phone'
-            onClick={() => setMenu("mobile-app")}
-            className={menu === "mobile-app" ? "active" : "nav-links"}
+            to='/mobile'
+            className={menu === "/mobile" ? "active" : "nav-links"}
           >
             phone & tab
           </NavLink>
           <NavLink
-            to='/computer'
-            onClick={() => setMenu("mobile-app")}
-            className={menu === "mobile-app" ? "active" : "nav-links"}
+            to='/desktop'
+            className={menu === "/desktop" ? "active" : "nav-links"}
           >
             desktop & laptop
           </NavLink>
           <NavLink
-            to='/contact-us'
-            onClick={() => setMenu("contact-us")}
-            className={menu === "contact-us" ? "active" : "nav-links"}
+            to='/contact'
+            className={menu === "/contact" ? "active" : "nav-links"}
           >
             contact us
           </NavLink>

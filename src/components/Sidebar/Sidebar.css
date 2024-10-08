@@ -1,0 +1,38 @@
+.sidebar {
+  position: absolute;
+  left: 0;
+  top: 20%;
+  padding: 20px;
+  background-color: rgb(93, 90, 90);
+  color: white;
+  overflow: hidden; /* Hide overflowing content when sidebar is closed */
+  transition: all 0.5s ease-in-out; /* Apply smooth transition */
+}
+
+.sidebar-full {
+  max-width: 20%;
+  height: 100%;
+}
+
+.sidebar-none {
+  max-width: 0; /* Set width to 0 when closed */
+  height: 0; /* Set height to 0 when closed */
+}
+
+.filter-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+input[type="range"] {
+  width: 100%; /* Full width for range input */
+}
+
+label {
+  display: block; /* Display each label in a block for better spacing */
+  margin: 10px 0;
+}

@@ -1,0 +1,22 @@
+.shop-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+@media (min-width: 1280px) {
+  .shop-items {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 768px) {
+  .shop-items {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  .shop-items {
+    grid-template-columns: auto;
+    gap: 0.5rem;
+  }
+}

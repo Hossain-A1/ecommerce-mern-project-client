@@ -1,5 +1,5 @@
 .category-container {
-  padding: 20px;
+  padding: 20px 5px;
   overflow: hidden;
 }
 
@@ -11,8 +11,9 @@
 
 .category-items {
   display: flex;
-  justify-content: center; 
-  overflow-x: auto; 
+  align-items: center;
+  justify-content: center;
+  overflow-x: scroll; 
   scrollbar-width: none; /* Hide scrollbar for Firefox */
   padding-bottom: 10px; 
 }
@@ -52,6 +53,7 @@
   .category-items {
     padding-left: 15px; /* Add padding on smaller screens */
     gap: 10px;
+    justify-content: start;
   }
 
   .category-item {
