@@ -4,6 +4,7 @@ import Hero from "../components/Hero/Hero";
 import ProductSidebar from "../components/Sidebar/ProductSidebar";
 import Services from "../components/Services/Services";
 import { FaListUl } from "react-icons/fa";
+import Products from "../components/Products/Products";
 
 const Home = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -23,6 +24,7 @@ const Home = () => {
           <Hero />
           <Services />
           <Category />
+          <Products/>
         </div>
       </div>
     </div>

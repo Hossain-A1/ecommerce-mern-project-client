@@ -12,6 +12,7 @@ import Desktop from "../pages/Desktop/Desktop";
 import Shop from "../pages/Shop/Shop";
 import Contact from "../pages/Contact/Contact";
 import ProductInfo from "../pages/ProductInfo/ProductInfo";
+import Footer from "../components/Footer/Footer";
 
 // import Footer from "../components/Footer";
 const Index = () => {
@@ -34,7 +35,7 @@ const Index = () => {
 
         <Route path='*' element={<Error />} />
       </Routes>
-      {/* <Footer/> */}
+      <Footer/>
     </BrowserRouter>
   );
 };

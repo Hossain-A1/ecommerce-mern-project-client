@@ -19,7 +19,7 @@ const Navbar = ({ profileModal, setProfileModal }) => {
       <div className='  container'>
         <div className='nav-top flex-space-between '>
           <div className='logo  '>
-            <h2 className='nav-logo'>eBay</h2>
+            <h2 className='nav-logo'>Trendora</h2>
             <button className='category-btn flex-cente flex-space-between'>
               <FaListUl className='category-icon' />
               <p className='category'>Category</p>
